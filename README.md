@@ -1,2 +1,2 @@
 # project_test
-Project Gold is to keep may small file and program organize
+Project Gold is to keep many small file and program unrelated organize
