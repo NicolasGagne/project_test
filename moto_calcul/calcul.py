@@ -31,27 +31,28 @@ class Budget(object):
         # Formula to calculate monthly payments
         return self.totalcom() * (interestRate * (1 + interestRate) ** month) / ((1 + interestRate) ** month - 1)
 
+    def promp_int(self, msg):
+        while True:
+            try:
+                self.price = int(input(msg))
+                break
+            except:
+                print("That's not a valid number")
+
 
     def set_price(self):
-        while True:
-            try:
-                self.price = int(input('What is the price of the item?'))
-                break
-            except:
-                print("That's not a valid number")
+        msg = 'What is the price of the item?'
+        self.promp_int(msg)
+
 
     def set_interest(self):
-        while True:
-            try:
-                self.interet = int(input('What is the interest for the loan?'))
-                break
-            except:
-                print("That's not a valid number")
+        msg = 'What is the interest for the loan?'
+        self.promp_int(msg)
+
 
     def set_years(self):
-        while True:
-            try:
-                self.years = int(input('How long is the amortissement (years)?'))
-                break
-            except:
-                print("That's not a valid number")
+        msg = 'How long is the amortissement (years)?'
+        self.promp_int(msg)
+
+
+bud = Budget()
