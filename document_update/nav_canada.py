@@ -1,10 +1,6 @@
 
 
 import requests
-from lxml import html
-
-# AIP (no password)
-
 
 
 AIP_AD_ENG = "http://www.navcanada.ca/EN/products-and-services/Documents/AIP/Current/part_3_ad/3ad_eng.pdf"
@@ -19,13 +15,6 @@ AIP_URL = {
     'AIP_AIC_ENG':"http://www.navcanada.ca/EN/products-and-services/Documents/AIP/Current/part_5_aic/5aic_eng.pdf"
     }
 
-NAV_CANADA_LOGIN = "https://checkout.na3.netsuite.com/c.1063417/checkout-2-05-0/index.ssp"
-NAV_CANADA_LOGIN1 = "https://checkout.na3.netsuite.com/c.1063417/checkout-2-05-0/index.ssp?is=login&login=T&sc=1&reset=T#login-register"
-NAV_CANADA_CREDIENTIAL = {'login-email': 'yquellais@hotmail.com', 'login-password': 'star9025'}
-
-CFS_URL = {
-
-}
 def download_aip():
 
     for key, value in AIP_URL.items():
@@ -33,20 +22,16 @@ def download_aip():
         with open(key + '.pdf', 'wb') as file:
             file.write(responce.content)
 
-def download_cfs():
-    nav_canada_session = requests.Session()
-
-    nav_canada_session.get(NAV_CANADA_LOGIN)
-    nav_canada_session.post(NAV_CANADA_LOGIN, data=NAV_CANADA_CREDIENTIAL)
-
-    page = nav_canada_session.get("https://checkout.na3.netsuite.com/app/site/hosting/scriptlet.nl?script=12&deploy=1&compid=1063417&custpage_sel_lang=en_CA&whence=")
+def download_aim():
+    responce = requests.get("http://www.tc.gc.ca/media/documents/ca-publications/AIM-2018-1-E-ACCESS.pdf")
+    with open("Aeronautical Information Manual (AIM)" + '.pdf', 'wb') as file:
+        file.write(responce.content)
 
 
-    webpage = html.fromstring(page.content)
-    print(page.text)
-    print(page.headers)
-    print(page.content)
-    print(webpage.xpath('*'))
-    print(webpage.xpath('//a/@href'))
 
-download_cfs()
+def download_aa():
+    responce = requests.get("http://laws-lois.justice.gc.ca/PDF/A-2.pdf")
+    with open("Aeronautical Act" + '.pdf', 'wb') as file:
+        file.write(responce.content)
+
+download_aa()
