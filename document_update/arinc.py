@@ -18,6 +18,7 @@ with open("C:/Users/ngagne/Documents/Python/project_test/document_update/" + "TE
 '''
 
 from document_update.const import ARINC_CREDIENTIAL, ARINC_LOGIN_URL, ARINC_DOC_URL
+from document_update.utility import time_sleep_counter
 
 from selenium import webdriver
 from selenium.common.exceptions import NoAlertPresentException
@@ -64,21 +65,21 @@ class Arinc():
         print('Accessing Document Page')
         self.driver.get(ARINC_DOC_URL)
         WebDriverWait(self.driver, 10).until(EC.title_contains("iPad"))
-        time.sleep(5)
+        time_sleep_counter(5)
 
     def acces_aip_folder(self):
         self.acces_doc_page()
         print('Accessing AIP Folder')
         self.driver.find_element_by_id('ResultsContainer').\
             find_element_by_id("folder_ViewButton_1646169").click()
-        time.sleep(3)
+        time_sleep_counter(5)
 
     def acces_cfs_folder(self):
         self.acces_doc_page()
         print('Accessing CFS Folder')
         self.driver.find_element_by_id('ResultsContainer').\
             find_element_by_id("folder_ViewButton_1574769").click()
-        time.sleep(3)
+        time_sleep_counter(5)
 
     def delete_element_folder(self):
         # this methode musb only be call when in actual folder.
@@ -112,10 +113,12 @@ class Arinc():
     def add_cfs_to_cfs_folder(self):
         self.acces_cfs_folder()
         self.upload_doc(self.temp_dir_dict['cfs_dir'])
+        time_sleep_counter(300)
 
 
     def add_aim_to_aip_folder(self):
         self.acces_aip_folder()
         self.upload_doc(self.temp_dir_dict['aip_dir'])
+        time_sleep_counter(90)
 
 

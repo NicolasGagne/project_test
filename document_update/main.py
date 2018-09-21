@@ -1,7 +1,7 @@
 
 from document_update.nav_canada_selenium import download_cfs
 from document_update.nav_canada import download_aip, download_aa, download_aim
-from document_update.const import *
+from document_update.utility import time_sleep_counter
 from document_update.arinc import Arinc
 import os, time
 
@@ -33,11 +33,10 @@ if __name__ == "__main__":
     #download_aip(AIP_URL, temp_dir_dict['aip_dir'])
     #download_aim(AIM_URL, temp_dir_dict['aim_dir'])
     #download_aa(AA_URL, temp_dir_dict['aa_dir'])
-    #Arinc(temp_dir_dict)
-
-    print("DONE")
-    time.sleep(300)
-
+    Arinc(temp_dir_dict)
 
     # remove the temp file
     #shutil.rmtree(temp_dir)
+
+    print("DONE You can quit")
+    time_sleep_counter(300)
