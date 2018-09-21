@@ -20,6 +20,7 @@ def download_cfs(temp_dir):
     driver.minimize_window()
 
     driver.get(NAV_CANADA_LOGIN_URL)
+    WebDriverWait(driver, 10).until(EC.title_contains("Sign In | Register"))
     driver.find_element_by_id("login-email").send_keys(NAV_CANADA_CREDIENTIAL["email"])
     driver.find_element_by_id('login-password').send_keys(NAV_CANADA_CREDIENTIAL["password"])
     driver.find_element_by_id('login-view').find_element_by_tag_name('button').click()
