@@ -21,7 +21,7 @@ from document_update.const import ARINC_CREDIENTIAL, ARINC_LOGIN_URL, ARINC_DOC_
 from document_update.utility import time_sleep_counter
 
 from selenium import webdriver
-from selenium.common.exceptions import NoAlertPresentException
+from selenium.common.exceptions import NoAlertPresentException, NoSuchElementException
 
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -30,17 +30,18 @@ import time, os
 from document_update.utility import wait_download_finish
 
 class Arinc():
-    def __init__(self, temp_dir_dict):
+    def __init__(self, temp_dir_dict, username, password):
         self.temp_dir_dict = temp_dir_dict
         self.driver = self.create_driver()
-        self.login()
-        self.acces_aip_folder()
-        self.delete_element_folder()
-        self.add_aim_to_aip_folder()
-        self.acces_cfs_folder()
-        self.delete_element_folder()
-        self.add_cfs_to_cfs_folder()
+        self.username = username
+        self.password = password
 
+        self.login()
+
+        self.replace_aips_in_aip_folder()
+        self.replace_cfss_in_cfs_folder()
+        self.replace_aa_in_ops_folder()
+        self.replace_aim_in_ops_folder()
 
     def create_driver(self):
         chrome_options = webdriver.ChromeOptions()
@@ -56,8 +57,8 @@ class Arinc():
     def login(self):
         print('Arinc Login')
         self.driver.get(ARINC_LOGIN_URL)
-        self.driver.find_element_by_id("username").send_keys(ARINC_CREDIENTIAL["username"])
-        self.driver.find_element_by_id("password").send_keys(ARINC_CREDIENTIAL["password"])
+        self.driver.find_element_by_id("username").send_keys(self.username)
+        self.driver.find_element_by_id("password").send_keys(self.password)
         self.driver.find_element_by_id("submitButton").click()
         WebDriverWait(self.driver, 10).until(EC.title_contains("Create FPL"))
 
@@ -70,18 +71,40 @@ class Arinc():
     def acces_aip_folder(self):
         self.acces_doc_page()
         print('Accessing AIP Folder')
-        self.driver.find_element_by_id('ResultsContainer').\
-            find_element_by_id("folder_ViewButton_1646169").click()
+        try:
+            self.driver.find_element_by_id('ResultsContainer').\
+                find_element_by_id("folder_ViewButton_1646169").click()
+        except NoSuchElementException:
+            self.driver.find_element_by_id('ResultsContainer'). \
+                find_element_by_id("folder_ViewButton_1668551").click()
+
         time_sleep_counter(5)
 
     def acces_cfs_folder(self):
         self.acces_doc_page()
         print('Accessing CFS Folder')
-        self.driver.find_element_by_id('ResultsContainer').\
-            find_element_by_id("folder_ViewButton_1574769").click()
+        try:
+            self.driver.find_element_by_id('ResultsContainer').\
+                find_element_by_id("folder_ViewButton_1574769").click()
+        except NoSuchElementException:
+            self.driver.find_element_by_id('ResultsContainer'). \
+                find_element_by_id("folder_ViewButton_1668552").click()
+
         time_sleep_counter(5)
 
-    def delete_element_folder(self):
+    def acces_ops_folder(self):
+        self.acces_doc_page()
+        print('Accessing Operation Folder'),
+        try:
+            self.driver.find_element_by_id('ResultsContainer').\
+            find_element_by_id("folder_ViewButton_1574768").click()
+        except NoSuchElementException:
+            self.driver.find_element_by_id('ResultsContainer'). \
+                find_element_by_id("folder_ViewButton_1668554").click()
+
+        time_sleep_counter(5)
+
+    def delete_elements_folder(self):
         # this methode musb only be call when in actual folder.
         print('Deleting Element in this folder...')
         element_list = self.driver.find_element_by_id('ResultsContainer').find_elements_by_xpath("//*[starts-with(@id,'document_DeleteButton_')]")
@@ -103,6 +126,7 @@ class Arinc():
                 self.driver.find_element_by_id('documentPane') \
                     .find_element_by_name('qqfile') \
                     .send_keys(os.path.join(root, file))
+                time_sleep_counter(5)
                 try:
                     self.driver.switch_to.alert.accept()
                     print("Alert")
@@ -110,15 +134,29 @@ class Arinc():
                     pass
 
 
-    def add_cfs_to_cfs_folder(self):
+    def replace_cfss_in_cfs_folder(self):
         self.acces_cfs_folder()
+        self.delete_elements_folder()
         self.upload_doc(self.temp_dir_dict['cfs_dir'])
         time_sleep_counter(300)
 
 
-    def add_aim_to_aip_folder(self):
+    def replace_aips_in_aip_folder(self):
         self.acces_aip_folder()
+        self.delete_elements_folder()
         self.upload_doc(self.temp_dir_dict['aip_dir'])
         time_sleep_counter(90)
+
+    def replace_aa_in_ops_folder(self):
+        self.acces_ops_folder()
+        ## missing delete document
+        self.upload_doc(self.temp_dir_dict['aa_dir'])
+        time_sleep_counter(15)
+
+    def replace_aim_in_ops_folder(self):
+        self.acces_ops_folder()
+        ## missing delete document
+        self.upload_doc(self.temp_dir_dict['aim_dir'])
+        time_sleep_counter(15)
 
 

@@ -2,6 +2,7 @@
 
 ARINC_LOGIN_URL = "https://direct.arinc.net/ADC/Login/Login"
 ARINC_CREDIENTIAL = {'username': 'ngagne', 'password': 'BAS922794'}
+AIM_CREDIENTIAL = {'username': 'Starlink', 'password': 'Starlink1'}
 ARINC_DOC_URL = "https://direct.arinc.net/ADC/ADCContext/DocumentManagement"
 
 NAV_CANADA_LOGIN_URL = "https://checkout.na3.netsuite.com/c.1063417/checkout-2-05-0/index.ssp?is=login&origin=defaultbehavior&whence=#login-register"
