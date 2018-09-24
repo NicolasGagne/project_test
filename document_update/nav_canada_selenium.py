@@ -7,16 +7,16 @@ from selenium.webdriver.support.ui import WebDriverWait
 from document_update.utility import wait_download_finish
 from document_update.const import NAV_CANADA_DOWNLOAD_PAGE, NAV_CANADA_LOGIN_URL, NAV_CANADA_CREDIENTIAL
 
-def download_cfs(temp_dir):
+def download_cfs(temp_dir_dict):
 
     chrome_options = webdriver.ChromeOptions()
-    print(temp_dir)
-    chrome_options.add_experimental_option("prefs", {"download.default_directory": temp_dir,
+    print(temp_dir_dict['temp_dir'])
+    chrome_options.add_experimental_option("prefs", {"download.default_directory": temp_dir_dict['cfs_dir'],
                                               "download.prompt_for_download": False,
                                               "download.directory_upgrade": True,
                                               "safebrowsing.enabled": True
                                               })
-    driver = webdriver.Chrome(chrome_options=chrome_options)
+    driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=temp_dir_dict["temp_dir"])
     driver.minimize_window()
 
     driver.get(NAV_CANADA_LOGIN_URL)
@@ -43,3 +43,4 @@ def download_cfs(temp_dir):
 
     driver.quit()
     print("CFS downloads completed.")
+
