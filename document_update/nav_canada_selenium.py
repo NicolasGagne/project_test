@@ -16,7 +16,7 @@ def download_cfs(temp_dir_dict):
                                               "download.directory_upgrade": True,
                                               "safebrowsing.enabled": True
                                               })
-    driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=temp_dir_dict["temp_dir"])
+    driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=temp_dir_dict["temp_dir"] + '/chromedriver.exe')
     driver.minimize_window()
 
     driver.get(NAV_CANADA_LOGIN_URL)

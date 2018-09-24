@@ -29,6 +29,8 @@ def time_sleep_counter(seconds):
 
 def download_chromedriver(temp_dir):
 
+    print('Downloading chromedriver.zip...')
     zip=requests.get(URL_CHROMEDRIVER).content
     zip_file = zipfile.ZipFile(io.BytesIO(zip))
     zip_file.extractall(temp_dir)
+    print('Chrome driver install finish')

@@ -50,7 +50,7 @@ class Arinc():
                                                          "download.directory_upgrade": True,
                                                          "safebrowsing.enabled": True
                                                          })
-        driver = webdriver.Chrome(chrome_options=chrome_options)
+        driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=self.temp_dir_dict["temp_dir"] + '/chromedriver.exe')
         driver.minimize_window()
         return driver
 
