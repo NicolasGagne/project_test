@@ -39,7 +39,7 @@ def download_cfs(temp_dir_dict):
             print('Link Not Working ', link)
     print(x, " CFS Downloading...")
 
-    wait_download_finish(temp_dir)
+    wait_download_finish(temp_dir_dict['cfs_dir'])
 
     driver.quit()
     print("CFS downloads completed.")
