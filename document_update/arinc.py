@@ -141,6 +141,6 @@ class Arinc():
         self.acces_ops_folder()
         ## missing delete document
         self.upload_doc(self.temp_dir_dict['aim_dir'])
-        time_sleep_counter(15)
+        time_sleep_counter(45)
 
 
