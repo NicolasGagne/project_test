@@ -3,6 +3,11 @@
 import os
 import sys
 import time
+from document_update.const import URL_CHROMEDRIVER
+import zipfile
+import io
+
+import requests
 
 def wait_download_finish(dir):
 
@@ -22,3 +27,8 @@ def time_sleep_counter(seconds):
 
     print()
 
+def download_chromedriver(temp_dir):
+
+    zip=requests.get(URL_CHROMEDRIVER).content
+    zip_file = zipfile.ZipFile(io.BytesIO(zip))
+    zip_file.extractall(temp_dir)

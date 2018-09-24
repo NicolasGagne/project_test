@@ -24,3 +24,5 @@ AIP_URL = {
 AIM_URL = "http://www.tc.gc.ca/media/documents/ca-publications/AIM-2018-1-E-ACCESS.pdf"
 
 AA_URL = "http://laws-lois.justice.gc.ca/PDF/A-2.pdf"
+
+URL_CHROMEDRIVER = "https://chromedriver.storage.googleapis.com/2.42/chromedriver_win32.zip"
