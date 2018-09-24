@@ -4,7 +4,7 @@ from document_update.nav_canada import download_aip, download_aa, download_aim
 from document_update.utility import time_sleep_counter
 from document_update.const import ARINC_CREDIENTIAL, AIM_CREDIENTIAL, AIP_URL, AA_URL, AIM_URL
 from document_update.arinc import Arinc
-import os, time
+import os, shutil
 
 
 base_dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     Arinc(temp_dir_dict, AIM_CREDIENTIAL["username"], AIM_CREDIENTIAL["password"])
 
     # remove the temp file
-    #shutil.rmtree(temp_dir)
+    shutil.rmtree(temp_dir)
 
     print("DONE You can quit")
     time_sleep_counter(300)
