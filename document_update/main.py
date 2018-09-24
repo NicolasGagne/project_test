@@ -40,6 +40,7 @@ if __name__ == "__main__":
     Arinc(temp_dir_dict, AIM_CREDIENTIAL["username"], AIM_CREDIENTIAL["password"])
 
     # remove the temp file
+    print('Deleting all temp files.')
     shutil.rmtree(temp_dir)
 
     print("DONE You can quit")
