@@ -53,6 +53,3 @@ class Budget(object):
     def set_years(self):
         msg = 'How long is the amortissement (years)?'
         self.promp_int(msg)
-
-
-bud = Budget()
