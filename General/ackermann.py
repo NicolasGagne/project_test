@@ -1,4 +1,8 @@
+'''
+File to play around with the ackermann function to see how it work
 
+https://fr.wikipedia.org/wiki/Fonction_d%27Ackermann
+'''
 a = 0
 
 def ack (m , n):
